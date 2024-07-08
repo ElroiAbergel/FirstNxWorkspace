@@ -8,24 +8,21 @@ export class UserController {
     constructor(private UserService:UserService) { }
     @Post()
     createUser(@Body() createUserDto: CreateUserDto) {
+        
         return this.UserService.create(createUserDto)
     }
     @Get("login")
-    async getUser(@Query('username') username: string ,@Query('password') password: string) {
-        return this.UserService.Login(username, password);
+    async getUser(@Query('email') email: string ,@Query('password') password: string) {
+        return this.UserService.Login(email, password);
 
     }
-    @Get('isUsernameAvailable')
-    async findUser(@Query('username') username: string) {
-        return this.UserService.isUsernameAvailable(username);
+    @Get('isEmailAvailable')
+    async findUser(@Query('email') email: string) {
+        return this.UserService.isEmailAvailable(email);
     }
     @Patch('update')
     async updateUser(@Query('username') username: string, @Body() updateUserDto: UpdateUserDto) {
         return this.UserService.update(username, updateUserDto);
-    }
-    @Patch('delete')
-    async deleteUser(@Query('username') username: string) {
-        return this.UserService.delete(username);
     }
 
     
