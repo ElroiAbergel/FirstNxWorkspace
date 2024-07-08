@@ -1,1 +1,111 @@
 /* You can add global styles to this file, and also import other style files */
+@import "primeng/resources/themes/viva-dark/theme.css";
+@import "primeng/resources/primeng.css";
+@import "primeicons/primeicons.css";
+@import 'primeflex/primeflex.scss';
+
+
+
+body{
+    padding: 0;
+    margin: 0;
+}
+.p-menubar{
+    background-color: rgba(0,0,0,0.6);
+    border: none;
+}
+.p-menuitem-text{
+    color:#d1d1d1;
+}
+.p-menuitem{
+    transition: all 0.2s;
+}
+.p-menuitem:hover{
+    .p-menuitem-text{
+        color: white;
+    }
+    transform: translateY(-2px);
+ }
+
+
+.p-inputtext {
+    color: #4b5563;
+    background: #161616;
+
+}
+.p-button-secondary{
+    background-color: transparent ;
+    border: none ;
+    padding-bottom: 12px ;
+    transition: transform 0.2s ;
+}
+.p-button{
+    transition: transform 0.4s ;
+}
+.p-button:hover{
+    transform: scale(1.1); 
+ }
+ .section {
+    scrollbar-color: #6969dd #e0e0e0;
+    scrollbar-width: thin;
+  }
+
+.p-card{
+    border-radius: 30px;
+    height: fit-content;
+    min-height: 240px;
+    width: 280px;
+}
+
+
+.p-card-header img {
+    border-radius: 30px;
+}
+.textAndBtnsDiv{
+    width: 100%; height: 100%; display: flex; align-items: center; padding-top: 140px;justify-content: center; flex-direction: column; gap:240px;
+}
+.textDiv{
+    color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; 
+}
+.h1Text{
+    font-size:4rem; 
+    text-shadow: 1px 1px 2px #D32F2F, 0 0 1em #1976D2, 0 0 0.2em white; /* Red 700 and Blue 700 */
+}
+.spanText{
+    font-weight: 600; font-size: 1.1rem;
+}
+.btnsDiv{
+    display: flex; flex: row; gap: 300px;
+}
+.btnsDiv .p-button {
+    background-color: #9FA8DA; /* Light Blue Grey */
+    color: #1A237E; /* Dark Blue */
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: box-shadow 0.6s;
+}
+
+.btnsDiv .p-button:hover {
+    box-shadow: 0 0 10px rgba(159, 168, 218, 0.6), 0 0 20px rgba(159, 168, 218, 0.4), 0 0 30px rgba(159, 168, 218, 0.2);
+}
+
+.backgroundDiv{
+    width: 100% ;height: 100vh; background-image: url(https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-018.jpg); background-size: cover;
+}
+.searchBtn{
+    font-size: 20px; color: white;
+}
+.SearchDiv{
+    width: 100%; height: 90%; display: flex; align-items: center; ;justify-content: center; flex-direction: row;
+}
+.serachinput{
+    font-size: 5rem;
+}
+.glowyText{
+    font-size:1.25rem; 
+    font-weight:600;
+    text-shadow: 1px 1px 2px #D32F2F, 0 0 1em #1976D2, 0 0 0.2em white; /* Red 700 and Blue 700 */
+}
