@@ -4,8 +4,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
-import {  loginFeature } from './Store/reducers/login.reducer';
+import { loginFeature } from './Store/reducers/login.reducer';
 import { environment } from '../../environment';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,6 +18,7 @@ import { environment } from '../../environment';
   ],
   providers: [
     provideStoreDevtools({ maxAge: 25, logOnly: environment.production }),
+    provideAnimations(),
   ],
   bootstrap: [AppComponent],
 })
