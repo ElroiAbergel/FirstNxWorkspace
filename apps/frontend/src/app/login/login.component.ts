@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { LoginActions } from '../Store/actions/login.actions';
 import { sha256 } from 'js-sha256';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 import axios from 'axios';
 @Component({
   selector: 'app-login',
@@ -10,16 +11,18 @@ import axios from 'axios';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
-  email:string='';
-
+  loginForm = new FormGroup({
+    email: new FormControl('', Validators.required),
+    password: new FormControl('', Validators.required),
+  });
   constructor(private router: Router, private store: Store) {}
 
-  Login() {
-    axios
+  async Login() {
+    const formValue = this.loginForm.value;
+    if (formValue.email && formValue.password) {
+     await axios
       .get(
-       "http://localhost:3000/user/login?email="+this.email+"&password="+sha256(this.password)
+       "http://localhost:3000/user/login?email="+formValue.email+"&password="+sha256(formValue.password)
       )
       .then((response) => {
         return response.data;
@@ -34,4 +37,5 @@ export class LoginComponent {
         }
       });
   }
+}
 }
