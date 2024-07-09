@@ -5,22 +5,21 @@ import { User } from '../Schemas/User.schema';
 import { CreateUserDto } from '../dto/User/create-user.dto';
 import { UpdateUserDto } from '../dto/User/update-user.dto';
 import { sha256 } from 'js-sha256';
-import { generateRandomString } from 'ts-randomstring/lib';
-// function genSalt(length: number) {
-//   let saltConcation = '';
-//   for (let i = 0; i < length; i++) {
-//     const random = Math.floor(Math.random() * 91) + 33;
-//     const salt = String.fromCharCode(random);
-//     saltConcation += salt;
-//   }
-//   return saltConcation;
-// }
+function genSalt(length: number) {
+  let saltConcation = '';
+  for (let i = 0; i < length; i++) {
+    const random = Math.floor(Math.random() * 91) + 33;
+    const salt = String.fromCharCode(random);
+    saltConcation += salt;
+  }
+  return saltConcation;
+}
 @Injectable()
 export class UserService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) {}
   async create(createUserDto: CreateUserDto) {
     try {
-      createUserDto.salt = generateRandomString({ length: 5 });
+      createUserDto.salt = genSalt(100);
       const saltedpass = createUserDto.password + createUserDto.salt;
       createUserDto.password = sha256(saltedpass);
       const createdUser = new this.userModel(createUserDto);

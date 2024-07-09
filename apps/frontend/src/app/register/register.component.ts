@@ -28,7 +28,7 @@ export class RegisterComponent {
     let validation = new Validation();
     if (formValue.email && formValue.username && formValue.password && formValue.passwordConfirmation) {
       let httpBody = JSON.stringify({
-        email: formValue.email,
+        email: formValue.email.toLowerCase(),
         username: formValue.username,
         password: sha256(formValue.password),
       });
@@ -46,7 +46,7 @@ export class RegisterComponent {
           await axios
             .get(
               'http://localhost:3000/user/isEmailAvailable?email=' +
-                formValue.email
+                formValue.email.toLowerCase()
             )
             .then((response) => response.data)
             .then((data) => {

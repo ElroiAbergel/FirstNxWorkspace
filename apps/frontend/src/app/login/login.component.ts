@@ -22,7 +22,7 @@ export class LoginComponent {
     if (formValue.email && formValue.password) {
      await axios
       .get(
-       "http://localhost:3000/user/login?email="+formValue.email+"&password="+sha256(formValue.password)
+       "http://localhost:3000/user/login?email="+(formValue.email).toLowerCase()+"&password="+sha256(formValue.password)
       )
       .then((response) => {
         return response.data;
