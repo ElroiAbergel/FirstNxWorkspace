@@ -6,6 +6,7 @@ import { NavAndBackgroundModule } from '../nav-and-background/nav-and-background
 import { ButtonModule } from 'primeng/button'
 import { ResultsComponent } from '../results/results.component';
 import { RouterLink } from '@angular/router';
+import { NetflixService } from 'app/services/netflix.service';
 @NgModule({
   declarations: [HomeComponent],
   imports: [
@@ -13,7 +14,8 @@ import { RouterLink } from '@angular/router';
     ResultsModule,
     ButtonModule,
     NavAndBackgroundModule
-  ]
+  ],
+  providers: [NetflixService],
 
 })
 export class HomeModule { }

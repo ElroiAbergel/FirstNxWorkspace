@@ -7,6 +7,7 @@ import { NavAndBackgroundModule } from '../nav-and-background/nav-and-background
 import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormModule } from 'app/form/form.module';
+import { UserService } from 'app/services/user.service';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import { FormModule } from 'app/form/form.module';
     , ReactiveFormsModule
     , FormModule
 
-  ]
+  ],
+  providers: [UserService]
 })
 export class RegisterModule { }

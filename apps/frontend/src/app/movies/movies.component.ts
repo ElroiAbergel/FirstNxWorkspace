@@ -1,25 +1,29 @@
-import { Component } from '@angular/core';
-import { ViewChild } from '@angular/core';
-import { ResultsComponent } from '../results/results.component';
+import { Component, inject } from '@angular/core';
+import { NetflixService } from 'app/services/netflix.service';
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
-  styleUrl: './movies.component.css'
+  styleUrl: './movies.component.css',
 })
 export class MoviesComponent {
+  inputValue: string = '';
+  service: NetflixService = inject(NetflixService);
+  ngOnInit() {
+    this.service.reset();
+  }
   ScrollToResults(element: HTMLElement | null) {
     if (element) {
       element.scrollIntoView({ behavior: 'smooth' });
     }
   }
-  @ViewChild(ResultsComponent, { static: false }) results!: ResultsComponent;
   ScrollAndShowResults() {
-    let textinput = document.getElementById("search") as HTMLInputElement;
-    if (textinput && textinput.value) {
-      document.getElementById("resultsComponent")?.style.setProperty("display", "");
-        this.results.loadResults(textinput.value, "movie");
-      setTimeout(() => this.ScrollToResults(document.getElementById("results")), 2500);
-    }
+    this.service.loadSearchData(
+      { movie: true, series: false },
+      this.inputValue
+    );
+    setTimeout(
+      () => this.ScrollToResults(document.getElementById('results')),
+      1250
+    );
   }
-
 }

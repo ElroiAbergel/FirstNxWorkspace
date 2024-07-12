@@ -1,13 +1,11 @@
 <app-nav-and-background>
-    <div class="backgroundDiv">
         <div class="SearchDiv">
             <input id="search" type="text"
                 placeholder="Enter movie name" pInputText
-                class="p-inputtext serachinput">
+                class="p-inputtext serachinput" [(ngModel)]="inputValue">
             <p-button severity="secondary" (click)="ScrollAndShowResults()"><i
                     style="font-size: 5rem; "
                     class="pi pi-fw pi-search searchBtn"></i></p-button>
         </div>
-    </div>
     <app-results [Random]="false"></app-results>
 </app-nav-and-background>

@@ -4,6 +4,8 @@ import { Button } from 'primeng/button';
 import { NavAndBackgroundModule } from '../nav-and-background/nav-and-background.module';
 import { ResultsModule } from '../results/results.module';
 import { MoviesComponent } from './movies.component';
+import { FormsModule } from '@angular/forms';
+import { NetflixService } from 'app/services/netflix.service';
 
 @NgModule({
   declarations: [MoviesComponent],
@@ -11,8 +13,9 @@ import { MoviesComponent } from './movies.component';
     CommonModule,
     ResultsModule,
     Button,
-    NavAndBackgroundModule
-
-  ]
+    NavAndBackgroundModule,
+    FormsModule,
+  ],
+  providers: [NetflixService],
 })
-export class MoviesModule { }
+export class MoviesModule {}

@@ -4,9 +4,13 @@
 @import "primeicons/primeicons.css";
 @import 'primeflex/primeflex.scss';
 
-
+* {
+    box-sizing: border-box;
+}
 
 body{
+    width: 100%;
+    height: 100%;
     padding: 0;
     margin: 0;
 }
@@ -36,7 +40,6 @@ body{
 .p-button-secondary{
     background-color: transparent ;
     border: none ;
-    padding-bottom: 12px ;
     transition: transform 0.2s ;
 }
 .p-button{
@@ -62,7 +65,7 @@ body{
     border-radius: 30px;
 }
 .textAndBtnsDiv{
-    width: 100%; height: 100%; display: flex; align-items: center; padding-top: 140px;justify-content: center; flex-direction: column; gap:240px;
+    width: 100; height: 100%; display: flex; align-items: center; ;justify-content: center; flex-direction: column; gap:220px;
 }
 .textDiv{
     color: white; display: flex; align-items: center; justify-content: center; flex-direction: column; 
@@ -93,13 +96,13 @@ body{
 }
 
 .backgroundDiv{
-    width: 100% ;height: 100vh; background-image: url(https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-018.jpg); background-size: cover;
+    width: 100%; height: 100vh; background-attachment: fixed; background-image: url(https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-018.jpg); background-size: cover;    
 }
 .searchBtn{
     font-size: 20px; color: white;
 }
 .SearchDiv{
-    width: 100%; height: 90%; display: flex; align-items: center; ;justify-content: center; flex-direction: row;
+    width: 100%; height:  90%; display: flex; align-items: center; ;justify-content: center; flex-direction: row;
 }
 .serachinput{
     font-size: 5rem;

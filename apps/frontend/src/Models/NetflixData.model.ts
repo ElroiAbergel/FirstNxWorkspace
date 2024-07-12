@@ -4,3 +4,9 @@ export interface NetflixDataModel{
     type: string;
     listed_in: string;
 }
+  
+ export interface OriginalDataModel extends NetflixDataModel {
+    description: string;
+    release_year: number;
+  }
+  
