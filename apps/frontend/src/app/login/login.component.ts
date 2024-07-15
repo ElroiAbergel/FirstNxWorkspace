@@ -10,23 +10,20 @@ import { UserService } from 'app/services/user.service';
 })
 export class LoginComponent {
   service: UserService = inject(UserService);
-  loginForm = new FormGroup({
-    email: new FormControl('', Validators.required),
-    password: new FormControl('', Validators.required),
-  });
+  loginForm = new FormGroup({});
   constructor(private router: Router, private store: Store) {}
-async Login() {
-  const formValue = this.loginForm.value; 
-  const isLoggedIn = await this.service.Login(formValue.email, formValue.password);
-  if(isLoggedIn)
-  {
-    alert('Successfully logged in!');
-    this.router.navigate(['/']);
+  async Login() {
+    const isLoggedIn = await this.service.Login(
+      this.loginForm.value as {
+        email: string | undefined | null;
+        password: string | undefined | null;
+      }
+    );
+    if (isLoggedIn) {
+      alert('Successfully logged in!');
+      this.router.navigate(['/']);
+    } else {
+      alert('Invalid email or password');
+    }
   }
-  else
-  {
-    alert('Invalid email or password');
-  }
-}
- 
 }

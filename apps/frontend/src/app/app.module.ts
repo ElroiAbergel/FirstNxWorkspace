@@ -8,6 +8,7 @@ import { reducers } from './Store/reducers';
 import { environment } from '../../environment';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { EffectsModule } from '@ngrx/effects';
+import { NavAndBackgroundModule } from "./nav-and-background/nav-and-background.module";
 
 @NgModule({
   declarations: [AppComponent],
@@ -16,7 +17,8 @@ import { EffectsModule } from '@ngrx/effects';
     AppRoutingModule,
     StoreModule.forRoot(reducers),
     EffectsModule.forRoot([]),
-  ],
+    NavAndBackgroundModule
+],
   providers: [
     provideStoreDevtools({ maxAge: 25, logOnly: environment.production }),
     provideAnimations(),

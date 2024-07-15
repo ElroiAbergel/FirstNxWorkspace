@@ -11,17 +11,17 @@ import axios from 'axios';
 export class UserService {
   constructor(private store: Store<AppState>) {}
   emailAvailable: boolean = false;
-  async Login(
-    email: string | undefined | null,
-    password: string | undefined | null
-  ): Promise<boolean> {
-    if (email && password) {
+  async Login(data: {
+    email: string | undefined | null;
+    password: string | undefined | null;
+  }): Promise<boolean> {
+    if (data.email && data.password) {
       return axios
         .get(
           'http://localhost:3000/user/login?email=' +
-            email.toLowerCase() +
+            data.email.toLowerCase() +
             '&password=' +
-            sha256(password)
+            sha256(data.password)
         )
         .then((response) => {
           return response.data;
