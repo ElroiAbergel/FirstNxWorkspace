@@ -1,29 +1,48 @@
-import { Controller } from '@nestjs/common';
-import { UserService } from './user.service'
+import { Controller, Post, Get, Patch, Body, Query, Request, UseGuards } from '@nestjs/common';
+import { UserService } from './user.service';
 import { CreateUserDto } from '../dto/User/create-user.dto';
 import { UpdateUserDto } from '../dto/User/update-user.dto';
-import { Body, Get, Patch, Post, Query } from "@nestjs/common/decorators";
+import { LocalAuthGuard } from '../auth/local.auth.guard';
+import { AuthenticatedGuard } from '../auth/authenticated.guard';
+
 @Controller('user')
 export class UserController {
-    constructor(private UserService:UserService) { }
-    @Post()
-    createUser(@Body() createUserDto: CreateUserDto) {
-        
-        return this.UserService.create(createUserDto)
-    }
-    @Get("login")
-    async getUser(@Query('email') email: string ,@Query('password') password: string) {
-        return this.UserService.Login(email, password);
+    constructor(private userService: UserService) {}
 
+    @Post('/signup')
+    async signup(@Body() createUserDto: CreateUserDto) {
+        return this.userService.create(createUserDto);
     }
+
+    @UseGuards(LocalAuthGuard)
+    @Post('/login')
+    login(@Request() req): any {
+        return {
+            User: req.user,
+            msg: 'User logged in',
+        };
+    }
+
     @Get('isEmailAvailable')
     async findUser(@Query('email') email: string) {
-        return this.UserService.isEmailAvailable(email);
-    }
-    @Patch('update')
-    async updateUser(@Query('username') username: string, @Body() updateUserDto: UpdateUserDto) {
-        return this.UserService.update(username, updateUserDto);
+        return this.userService.isEmailAvailable(email);
     }
 
+    @Patch('update')
+    async updateUser(@Query('username') username: string, @Body() updateUserDto: UpdateUserDto) {
+        return this.userService.update(username, updateUserDto);
+    }
+
+    @UseGuards(AuthenticatedGuard)
+    @Get('/protected')
+    getHello(@Request() req): string {
+        return req.user;
+    }
+
+    @Get('/logout')
+    logout(@Request() req): any {
+        req.session.destroy();
+        return { msg: 'The user session has ended' };
+    }
     
 }

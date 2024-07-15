@@ -7,10 +7,10 @@
         </ng-template>
         <ng-template pTemplate="end">
             <div class="flex h-full align-items-center">
-                <i *ngIf="!(loggedIn$| async)" routerLink="/login"
+                <i *ngIf="!(username$| async)" routerLink="/login"
                     class=" text-xl text-700 hover:text-white animation-duration-100 cursor-pointer pi pi-fw pi-user pr-4 transition-all transition-duration-500"></i>
                 <div class="flex h-full flex-row gap-3 align-items-center"
-                    *ngIf=" (loggedIn$| async)">
+                    *ngIf=" (username$| async)">
                     <span class="glowyText">Welcome {{(username$ | async)}}</span>
                     <i (click)="logout()"
                         class="text-xl text-700 hover:text-white animation-duration-100 cursor-pointer pi pi-fw pi-sign-out pr-4 transition-all transition-duration-500"></i>

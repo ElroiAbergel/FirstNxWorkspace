@@ -34,7 +34,7 @@ export class UserService {
         email: email,
       });
       if (result) {
-        return result.password === sha256(password + result.salt)? result.username : false;
+        return result.password === sha256(password + result.salt)? result : false;
       } else {
         return false;
       }
@@ -66,4 +66,7 @@ export class UserService {
       console.log(error);
     }
   }
+  async getUser(email: string): Promise<User | undefined> {
+    return this.userModel.findOne({ email }).exec();
+}
 }

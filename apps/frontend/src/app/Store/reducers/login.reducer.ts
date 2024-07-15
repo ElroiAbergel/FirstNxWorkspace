@@ -1,17 +1,17 @@
 import { createReducer, on, createFeature } from '@ngrx/store';
 import { LoginActions } from '../actions/login.actions';
-import { UserLogin } from '../../../Models/User-Login.model';
+import { User } from '../../../Models/User.model';
 
-export const initialState: UserLogin = { username: '', loggedIn: false };
+export const initialState: User = { username: '', email: '' } as User;
 export const loginFeatureKey = 'login';
 
 export const loginReducer = createReducer(
   initialState,
-  on(LoginActions.login, (state, { username }) => ({
-    username: username,
-    loggedIn: true,
-  })),
-  on(LoginActions.logout, (state) => ({ username: '', loggedIn: false }))
+  on(LoginActions.login, (state, { user }) => ({
+    username: user.username,
+    email: user.email,
+  }) as User),
+  on(LoginActions.logout, (state) => ({ username: '', email: '' }))
 );
 
 export const loginFeature = createFeature({

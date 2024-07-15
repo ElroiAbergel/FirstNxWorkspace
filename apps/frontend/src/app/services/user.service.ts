@@ -4,6 +4,7 @@ import { AppState } from '../Store/reducers/index';
 import { LoginActions } from '../Store/actions/login.actions';
 import { sha256 } from 'js-sha256';
 import { Validation } from '../Validators/validate';
+import { User } from '../../Models/User.model';
 import axios from 'axios';
 @Injectable({
   providedIn: 'root',
@@ -17,18 +18,23 @@ export class UserService {
   }): Promise<boolean> {
     if (data.email && data.password) {
       return axios
-        .get(
-          'http://localhost:3000/user/login?email=' +
-            data.email.toLowerCase() +
-            '&password=' +
-            sha256(data.password)
+        .post(
+          'http://localhost:3000/user/login',
+          JSON.stringify({
+            email: data.email.toLowerCase(),
+            password: sha256(data.password),
+          }),
+          {
+            withCredentials: true,
+            headers: { 'Content-Type': 'application/json' },
+          }
         )
         .then((response) => {
           return response.data;
         })
         .then((data) => {
           if (data) {
-            this.store.dispatch(LoginActions.login({ username: data }));
+            this.store.dispatch(LoginActions.login({ user: data.User }));
             return true;
           } else {
             return false;
@@ -68,7 +74,7 @@ export class UserService {
             .then(() => {
               if (this.emailAvailable) {
                 return axios
-                  .post('http://localhost:3000/user', httpBody, {
+                  .post('http://localhost:3000/user/signup', httpBody, {
                     headers: { 'Content-Type': 'application/json' },
                   })
                   .then((response) => {
@@ -98,4 +104,38 @@ export class UserService {
       return false;
     }
   }
-}
+  async Logout(): Promise<boolean> {
+    return axios
+      .get('http://localhost:3000/user/logout', {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.status === 200) {
+          this.store.dispatch(LoginActions.logout());
+          return true;
+        } else {
+          return false;
+        }
+      });
+  }
+  async isAuthenticated() {
+      try{
+        await axios
+        .get('http://localhost:3000/user/protected', {
+          withCredentials: true,
+        })
+        .then((response) => {
+          return response.data;
+        })
+        .then((data) => {
+          if (data) {
+            this.store.dispatch(LoginActions.login({ user: data }));
+            console.log(data);
+          }
+        });
+    }
+    catch (error) {
+      console.log(error);
+    }
+  }
+  }

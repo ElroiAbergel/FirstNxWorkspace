@@ -1,7 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { loginFeature } from 'app/Store/reducers/login.reducer';
-import { LoginActions } from 'app/Store/actions/login.actions';
+import { UserService } from 'app/services/user.service';
 import { Observable } from 'rxjs';
 import { AppState } from 'app/Store/reducers';
 @Component({
@@ -10,7 +10,6 @@ import { AppState } from 'app/Store/reducers';
   styleUrl: './nav-and-background.component.css',
 })
 export class NavAndBackgroundComponent {
-  loggedIn$: Observable<boolean>;
   username$: Observable<string>; //signal
   private user?: any;
   //masterSubscriber
@@ -18,13 +17,13 @@ export class NavAndBackgroundComponent {
   //use services through the effects and not directly
   constructor(private store: Store<AppState>) {
     this.username$ = this.store.pipe(select(loginFeature.selectUsername));
-    this.loggedIn$ = this.store.pipe(select(loginFeature.selectLoggedIn));
     const aaa = this.username$.subscribe((user) => {
       this.user = user;
     });
 
     aaa.unsubscribe();
   }
+  service: UserService = inject(UserService);
   items: any = [
     {
       label: 'Home',
@@ -43,6 +42,6 @@ export class NavAndBackgroundComponent {
     },
   ];
   logout() {
-    this.store.dispatch(LoginActions.logout());
+    this.service.Logout();
   }
 }
