@@ -2,7 +2,7 @@ import { createReducer, on, createFeature } from '@ngrx/store';
 import { LoginActions } from '../actions/login.actions';
 import { User } from '../../../Models/User.model';
 
-export const initialState: User = { username: '', email: '' } as User;
+export const initialState: User = {email:'',username:''};
 export const loginFeatureKey = 'login';
 
 export const loginReducer = createReducer(
@@ -18,3 +18,4 @@ export const loginFeature = createFeature({
   name: loginFeatureKey,
   reducer: loginReducer,
 });
+

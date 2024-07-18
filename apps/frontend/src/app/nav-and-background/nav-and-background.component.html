@@ -7,7 +7,7 @@
         </ng-template>
         <ng-template pTemplate="end">
             <div class="flex h-full align-items-center">
-                <i *ngIf="!(username$| async)" routerLink="/login"
+                <i *ngIf="!(username$| async)" (click)="this.navService.routeTo('/login')"
                     class=" text-xl text-700 hover:text-white animation-duration-100 cursor-pointer pi pi-fw pi-user pr-4 transition-all transition-duration-500"></i>
                 <div class="flex h-full flex-row gap-3 align-items-center"
                     *ngIf=" (username$| async)">

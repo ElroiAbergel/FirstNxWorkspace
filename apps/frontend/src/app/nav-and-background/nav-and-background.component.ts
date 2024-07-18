@@ -1,13 +1,14 @@
 import { Component, inject } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { loginFeature } from 'app/Store/reducers/login.reducer';
-import { UserService } from 'app/services/user.service';
+import { AuthService } from 'app/services/auth.service';
 import { Observable } from 'rxjs';
 import { AppState } from 'app/Store/reducers';
+import { NavManagementService } from 'app/authguard/nav-management.service';
 @Component({
   selector: 'app-nav-and-background',
   templateUrl: './nav-and-background.component.html',
-  styleUrl: './nav-and-background.component.css',
+  styleUrls: ['./nav-and-background.component.css'],
 })
 export class NavAndBackgroundComponent {
   username$: Observable<string>; //signal
@@ -15,7 +16,7 @@ export class NavAndBackgroundComponent {
   //masterSubscriber
   //change the form from bad name data to good name with a model
   //use services through the effects and not directly
-  constructor(private store: Store<AppState>) {
+  constructor(private store: Store<AppState> , protected navService: NavManagementService) {
     this.username$ = this.store.pipe(select(loginFeature.selectUsername));
     const aaa = this.username$.subscribe((user) => {
       this.user = user;
@@ -23,25 +24,27 @@ export class NavAndBackgroundComponent {
 
     aaa.unsubscribe();
   }
-  service: UserService = inject(UserService);
+  authService: AuthService = inject(AuthService);
   items: any = [
     {
       label: 'Home',
       icon: 'pi pi-fw pi-home',
-      routerLink: '/',
+      command: () => { this.navService.routeTo('home')}
     },
     {
       label: 'Series',
       icon: 'pi pi-fw pi-desktop',
-      routerLink: '/series',
+      command: () => { this.navService.routeTo('series')}
     },
     {
       label: 'Movies',
       icon: 'pi pi-fw pi-video ',
-      routerLink: '/movies',
+      command: () => { this.navService.routeTo('movies')}
     },
   ];
-  logout() {
-    this.service.Logout();
+
+  async logout() {
+    await this.authService.Logout();
+    this.navService.routeTo('login');
   }
 }

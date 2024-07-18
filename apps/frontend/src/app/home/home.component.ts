@@ -8,6 +8,7 @@ import { NetflixService } from 'app/services/netflix.service';
 export class HomeComponent {
   service: NetflixService = inject(NetflixService);
   ngOnInit() {
+    debugger;
     this.service.loadRandomData();
   }
 }

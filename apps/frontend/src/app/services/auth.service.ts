@@ -1,16 +1,37 @@
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../Store/reducers/index';
+import { first } from 'rxjs/operators';
+import { AppState } from '../Store/reducers';
 import { LoginActions } from '../Store/actions/login.actions';
 import { sha256 } from 'js-sha256';
 import { Validation } from '../Validators/validate';
-import { User } from '../../Models/User.model';
 import axios from 'axios';
+import { Observable } from 'rxjs';
+import { Subscription } from 'rxjs';
+import { loginFeature } from 'app/Store/reducers/login.reducer';
+import { time } from 'console';
 @Injectable({
   providedIn: 'root',
 })
-export class UserService {
-  constructor(private store: Store<AppState>) {}
+export class AuthService {
+  private username!: string;
+  private email!: string;
+  private authChecked: boolean = false;
+  constructor(private store: Store<AppState>) {
+    this.subscription.add(
+      this.store.select(loginFeature.selectUsername).subscribe((username) => {
+        this.username = username;
+      })
+    );
+    this.subscription.add(
+      this.store.select(loginFeature.selectEmail).subscribe((email) => {
+        this.email = email;
+      })
+    );
+  }
+  private subscription: Subscription = new Subscription();
+
+  loggedIn!: boolean;
   emailAvailable: boolean = false;
   async Login(data: {
     email: string | undefined | null;
@@ -118,24 +139,36 @@ export class UserService {
         }
       });
   }
-  async isAuthenticated() {
-      try{
-        await axios
-        .get('http://localhost:3000/user/protected', {
-          withCredentials: true,
-        })
-        .then((response) => {
-          return response.data;
-        })
-        .then((data) => {
-          if (data) {
-            this.store.dispatch(LoginActions.login({ user: data }));
-            console.log(data);
-          }
-        });
-    }
-    catch (error) {
-      console.log(error);
-    }
+  isAuthenticated(): Promise<boolean> {
+    return axios
+      .get('http://localhost:3000/user/protected', {
+        withCredentials: true,
+      })
+      .then((response) => {
+        if (response.data) {
+          this.store.dispatch(LoginActions.login({ user: response.data }));
+          this.authChecked = true;
+          return true;
+        } else {
+          this.authChecked = true;
+          return false;
+        }
+      })
+      .catch(() => {
+        this.authChecked = true;
+        return false;
+      });
   }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
+
+  isLoggedIn(): boolean {
+    return this.username !== '' && this.email !== '' ? true : false;
+  }
+
+  isAuthChecked(): boolean {
+    return this.authChecked;
+  }
+}

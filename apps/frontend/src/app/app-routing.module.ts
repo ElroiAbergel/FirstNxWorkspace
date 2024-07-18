@@ -10,12 +10,14 @@ import { LoginModule } from './login/login.module';
 import { RegisterModule } from './register/register.module';
 import { SeriesModule } from './series/series.module';
 import { MoviesModule } from './movies/movies.module';
+import { AuthGuard } from './authguard/auth.guard';
 export const routes: Routes = [
-  { 'path': '', component: HomeComponent } ,
-  { 'path': 'series', component: SeriesComponent } ,
-  { 'path': 'movies', component: MoviesComponent } ,
-  { "path": "login", component: LoginComponent},
-  { "path": "register", component: RegisterComponent}
+  { 'path': 'home', component: HomeComponent } ,
+  { 'path': 'series', component: SeriesComponent,canActivate: [AuthGuard] } ,
+  { 'path': 'movies', component: MoviesComponent ,canActivate: [AuthGuard]} ,
+  { "path": "login", component: LoginComponent , canActivate: [AuthGuard]},
+  { "path": "register", component: RegisterComponent , canActivate: [AuthGuard]},
+  { path: '**', redirectTo: 'home'},
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes),HomeModule,LoginModule,RegisterModule,SeriesModule,MoviesModule],

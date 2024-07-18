@@ -1,14 +1,16 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { UserService } from './services/user.service';
+import { Component,  OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from './services/auth.service';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css',
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent {
-  title = 'NetflixSearchNgmodule';
-  service: UserService = inject(UserService);
+export class AppComponent implements OnInit {
+  title = 'NetflixSearch';
+  constructor(private route: Router, private authService: AuthService) {}
   ngOnInit() {
-    this.service.isAuthenticated();
+  this.authService.isAuthenticated();
   }
 }

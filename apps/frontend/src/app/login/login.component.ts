@@ -1,17 +1,17 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
-import { UserService } from 'app/services/user.service';
+import { AuthService } from 'app/services/auth.service';
+import { NavManagementService } from 'app/authguard/nav-management.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
-  service: UserService = inject(UserService);
+  service: AuthService = inject(AuthService);
   loginForm = new FormGroup({});
-  constructor(private router: Router, private store: Store) {}
+  constructor(protected navService : NavManagementService, private store: Store) {}
   async Login() {
     const isLoggedIn = await this.service.Login(
       this.loginForm.value as {
@@ -21,7 +21,7 @@ export class LoginComponent {
     );
     if (isLoggedIn) {
       alert('Successfully logged in!');
-      this.router.navigate(['/']);
+      this.navService.routeTo('home');
     } else {
       alert('Invalid email or password');
     }

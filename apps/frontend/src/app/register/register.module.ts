@@ -7,23 +7,20 @@ import { NavAndBackgroundModule } from '../nav-and-background/nav-and-background
 import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 import { FormModule } from 'app/form/form.module';
-import { UserService } from 'app/services/user.service';
-
+import {AuthService } from 'app/services/auth.service';
 
 @NgModule({
-  declarations: [
-    RegisterComponent
-  ],
+  declarations: [RegisterComponent],
   imports: [
-    CommonModule
-    , ButtonModule
-    , FormsModule
-    , NavAndBackgroundModule
-    , RouterLink
-    , ReactiveFormsModule
-    , FormModule
-
+    CommonModule,
+    ButtonModule,
+    FormsModule,
+    NavAndBackgroundModule,
+    RouterLink,
+    ReactiveFormsModule,
+    FormModule,
+    
   ],
-  providers: [UserService]
+  providers: [AuthService],
 })
-export class RegisterModule { }
+export class RegisterModule {}

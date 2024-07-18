@@ -1,14 +1,12 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import * as cookieParser from 'cookie-parser'; 
 const session = require('express-session');
 const passport = require('passport');
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   
-  app.use(cookieParser.default());
   app.use(
     session({
       secret: 'your_secret_key',
