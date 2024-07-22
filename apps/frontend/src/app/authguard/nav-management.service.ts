@@ -19,11 +19,8 @@ export class NavManagementService {
 
   async navigateTo(url: string) {
     if (this.navigationAllowed) {
-     await this.route.navigate([url]);
+     await this.route.navigate([url] , {skipLocationChange: true} );
      this.DisallowNavigation();
-    }
-    else {
-      console.log("Navigation via the address bar not allowed");
     }
   }
   routeTo(url: string) {

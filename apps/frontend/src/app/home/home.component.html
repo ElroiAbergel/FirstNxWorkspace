@@ -5,8 +5,8 @@
             <span class="spanText">Netflix database search engine</span>
         </div>
         <div class="btnsDiv">
-             <p-button routerLink="/movies" label="Movies"></p-button>
-            <p-button label="Series" routerLink="/series"></p-button>
+             <p-button (onClick)="navService.routeTo('movies')" label="Movies"></p-button>
+            <p-button label="Series" (onClick)="navService.routeTo('series')"></p-button>
         </div>
     </div>
 <app-results [Random]="true"></app-results>

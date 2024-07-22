@@ -1,6 +1,9 @@
-import { Component,  OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import { NavigationStart, Router } from '@angular/router';
 import { AuthService } from './services/auth.service';
+import { Subscription } from 'rxjs';
+import { NavManagementService } from './authguard/nav-management.service';
+export let browserRefresh = false;
 
 @Component({
   selector: 'app-root',
@@ -9,8 +12,12 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent implements OnInit {
   title = 'NetflixSearch';
-  constructor(private route: Router, private authService: AuthService) {}
+
+  constructor(private navService: NavManagementService, private authService: AuthService) {
+    navService.routeTo('home')
+  }
+  
   ngOnInit() {
-  this.authService.isAuthenticated();
+    this.authService.isAuthenticated();
   }
 }

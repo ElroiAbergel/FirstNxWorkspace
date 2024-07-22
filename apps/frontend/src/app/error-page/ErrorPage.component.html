@@ -1,0 +1,8 @@
+<div class="textDiv" *ngIf="errorType == '404'"  >
+    <h1 class="h1Text">404</h1>
+    <span class="spanText">Page Not Found</span>
+</div>
+<div class="textDiv" *ngIf="errorType.toLowerCase() == 'url'">
+    <h1 class="h1Text">Nav Error</h1>
+    <span class="spanText">you are not allowed to edit url directly</span>
+</div>
