@@ -13,8 +13,8 @@ export let browserRefresh = false;
 export class AppComponent implements OnInit {
   title = 'NetflixSearch';
 
-  constructor(private navService: NavManagementService, private authService: AuthService) {
-    navService.routeTo('home')
+  constructor(private router: Router, private authService: AuthService) {
+    router.navigate(['/home'],{skipLocationChange : true})
   }
   
   ngOnInit() {
